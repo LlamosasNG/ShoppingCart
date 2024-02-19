@@ -37,4 +37,36 @@ function leerDatosCurso(curso){
     articulosCarrito = [ ...articulosCarrito, infoCurso ]
     
     console.log(articulosCarrito);
+
+    carritoHTML();
+}
+
+// Muestra el carrito de compras en el HTML
+function carritoHTML(){
+    // Limpiar el HTML
+    limpiarHTML();
+
+    // Recorre el carrito y genera el HTML
+    articulosCarrito.forEach( curso => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><img src = "${curso.imagen}" width = "100"></td>
+            <td>${curso.titulo}</td>
+            <td>${curso.precio}</td>
+            <td>${curso.cantidad}</td>
+        `;
+
+        // Agrega el HTML del carrito en el tbody
+        contenedorCarrito.appendChild(row);
+    });
+}
+
+// Elimina los cursos del tbody
+function limpiarHTML() {
+    // Método lento
+    // contenedorCarrito.innerHTML = '';
+
+    while(contenedorCarrito.firstChild){
+        contenedorCarrito.removeChild(contenedorCarrito.firstChild);
+    }
 }
