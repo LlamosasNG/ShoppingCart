@@ -1,7 +1,7 @@
 // Variables
 const carrito = document.querySelector('#carrito');
 const contenedorCarrito = document.querySelector('#lista-carrito tbody');
-const vaciarCarrito = document.querySelector('#vaciar-carrito');
+const vaciarCarritoBtn = document.querySelector('#vaciar-carrito');
 const listaCursos = document.querySelector('#lista-cursos');
 let articulosCarrito = [];
 
@@ -12,8 +12,15 @@ function cargarEventListeners(){
 
     // Elimina cursos del carrito 
     carrito.addEventListener('click',eliminarCurso);
-}
 
+    //Vaciar el carrito
+    vaciarCarritoBtn.addEventListener('click', () => {
+        articulosCarrito = []; // Reseteamos el arreglo 
+
+        limpiarHTML(); // Eliminamos todo el HTML
+
+    })
+}
 
 // Funciones
 function agregarCurso(e){
@@ -25,8 +32,17 @@ function agregarCurso(e){
     }
 }
 
-function eliminarCurso(){
-    console.log('Desde eliminar curso');
+function eliminarCurso(e){
+    if(e.target.classList.contains('borrar-curso')){
+        const cursoID = e.target.getAttribute('data-id');
+
+        //Elimina del arreglo articulosCarrito por el data-id
+        articulosCarrito = articulosCarrito.filter( curso => curso.id !== cursoID );
+
+        carritoHTML(); //Iteramos sobre el carrito y mostramos su HTML
+
+
+    }
 }
 
 function leerDatosCurso(curso){
